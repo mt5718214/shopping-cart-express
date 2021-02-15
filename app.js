@@ -8,7 +8,7 @@ const app = express()
 const PORT = process.env.PORT || 3000
 
 app.set('view engine', 'hbs')
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs', helpers: require('./config/handlebars-helpers') }))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))

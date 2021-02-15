@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'OrderId'
       })
       Order.hasMany(models.Payment)
-      Order.belongsTo(modes.User)
+      Order.belongsTo(models.User)
     }
   };
   Order.init({

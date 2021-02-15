@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       })
     }
   };
-  Cart.init({
+  Cart.init({}, {
     sequelize,
     modelName: 'Cart',
   });

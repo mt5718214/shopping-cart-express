@@ -11,4 +11,6 @@ router.get('/', (req, res) => {
 
 router.get('/products', productController.getProducts)
 
+router.get('/cart', cartController.getCart)
+
 module.exports = router

@@ -7,7 +7,7 @@ const OFFSET = 0
 
 module.exports = {
   getCart: (req, res) => {
-    Cart.findAll({
+    Cart.findByPk(req.session.cartId, {
       include: [{
         model: Product,
         as: 'items'
@@ -15,7 +15,8 @@ module.exports = {
       raw: true,
       nest: true
     }).then(cart => {
-      let totalPrice = cart.length > 0 ? cart.map(item => item.items.price * item.items.CartItem.quantity).reduce((acc, curr) => acc + curr) : 0
+      cart = cart || { items: [] }
+      let totalPrice = cart.items.length > 0 ? cart.items.map(d => d.price * d.CartItem.quantity).reduce((a, b) => a + b) : 0
       return res.render('cart', {
         cart,
         totalPrice

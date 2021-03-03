@@ -12,12 +12,17 @@ module.exports = {
       include: [{
         model: Product,
         as: 'items'
-      }],
-      raw: true,
-      nest: true
+      }]
     }).then(cart => {
       cart = cart || { items: [] }
-      let totalPrice = cart.items.length > 0 ? cart.items.map(d => d.price * d.CartItem.quantity).reduce((a, b) => a + b) : 0
+      //拿取cart.items以及CartItem的原生物件
+      cart = cart.items.map(item => ({
+        ...item.dataValues,
+        CartItem: item.CartItem.dataValues
+      }))
+
+      //計算購物車總金額
+      let totalPrice = cart.length > 0 ? cart.map(d => d.price * d.CartItem.quantity).reduce((a, b) => a + b) : 0
       return res.render('cart', {
         cart,
         totalPrice

@@ -55,5 +55,26 @@ module.exports = {
         })
       })
     })
+  },
+
+  //增加購物車商品數量
+  addCartItem: (req, res) => {
+    CartItem.findByPk(req.params.cartItemId)
+      .then(cartItem => {
+        cartItem.update({
+          quantity: cartItem.quantity + 1
+        }).then(cartItem => res.redirect('back'))
+      })
+  },
+
+  //減少購物車商品數量
+  subCartItem: (req, res) => {
+    CartItem.findByPk(req.params.cartItemId)
+      .then(cartItem => {
+        cartItem.update({
+          quantity: cartItem.quantity - 1 >= 1 ? cartItem.quantity - 1 : 1
+        }).then(cartItem => res.redirect('back'))
+      })
   }
+
 }
